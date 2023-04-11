@@ -1,5 +1,6 @@
 package com.sQUAD.maome.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoginBinding
+    private lateinit var binding: FragmentLoginBinding // initialize binding for this fragment
     private lateinit var mainApi: MainApi
     private val viewModel: LoginViewModel by activityViewModels()
 
@@ -31,12 +32,20 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater, container,false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Получаем сохраненный токен из SharedPreferences
+        val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
+        val token = sharedPreferences?.getString("token", null)
+        if (token != null) {
+            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+        }
+
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
@@ -52,10 +61,10 @@ class LoginFragment : Fragment() {
         mainApi = retrofit.create(MainApi::class.java) // retrofit instance
 
         binding.apply {
-            GoToRegisterButton.setOnClickListener{
+            GoToRegisterButton.setOnClickListener {
                 findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
-            loginButton.setOnClickListener{
+            loginButton.setOnClickListener {
                 auth(
                     AuthRequest(
                         usernameLogin.text.toString(),
@@ -72,11 +81,24 @@ class LoginFragment : Fragment() {
             val message = response.errorBody()?.string()?.let {
                 JSONObject(it).getString("message")
             }
-            requireActivity().runOnUiThread{
+            requireActivity().runOnUiThread {
                 binding.errorMessageLogin.text = message
                 val user = response.body()
                 if (user != null) {
                     viewModel.token.value = user.token
+
+                    // Получаем экземпляр SharedPreferences
+                    val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
+
+                    // Получаем экземпляр редактора SharedPreferences
+                    val editor = sharedPreferences?.edit()
+
+                    // Сохраняем токен в SharedPreferences
+                    editor?.putString("token", "")
+
+                    // Применяем изменения
+                    editor?.apply()
+
                     findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                 }
             }

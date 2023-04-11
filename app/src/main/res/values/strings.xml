@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MaoMe</string>
+    <string name="PasswordAlert">Password must be 6 or more symbols.</string>
+</resources>

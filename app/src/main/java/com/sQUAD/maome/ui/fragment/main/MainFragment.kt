@@ -67,7 +67,7 @@ class MainFragment : Fragment() {
     private fun checkLocationPermission() {
         if (!isLocationPermissionGranted(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
             locationPermissionListener()
-            locLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION) // if we doesnt have location access than we requesting it another time
+            locLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION) // if we doesn't have location access than we requesting it another time
         }
     }
 

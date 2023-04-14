@@ -1,4 +1,4 @@
-package com.sQUAD.maome.ui.fragment
+package com.sQUAD.maome.ui.fragment.register
 
 import android.content.Context
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.sQUAD.maome.R
 import com.sQUAD.maome.databinding.FragmentLoginBinding
-import com.sQUAD.maome.retrofit.AuthRequest
+import com.sQUAD.maome.retrofit.auth.AuthRequest
 import com.sQUAD.maome.retrofit.MainApi
 import com.sQUAD.maome.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope

@@ -1,6 +1,5 @@
-package com.sQUAD.maome.ui.fragment
+package com.sQUAD.maome.ui.fragment.register
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.sQUAD.maome.R
 import com.sQUAD.maome.databinding.FragmentRegisterBinding
 import com.sQUAD.maome.retrofit.MainApi
-import com.sQUAD.maome.retrofit.RegisterRequest
+import com.sQUAD.maome.retrofit.auth.RegisterRequest
 import com.sQUAD.maome.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -55,7 +54,7 @@ class RegisterFragment : Fragment() {
             .build()
         mainApi = retrofit.create(MainApi::class.java) // retrofit instance
 
-        binding.passwordRegister.addTextChangedListener(object : TextWatcher{
+        binding.passwordRegister.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 // Вызывается после того, как текст был изменен
                 val text = s?.toString()
@@ -80,7 +79,7 @@ class RegisterFragment : Fragment() {
         })
 
         binding.apply {
-            backButton.setOnClickListener{
+            backButton.setOnClickListener {
                 findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
             }
             registerButton.setOnClickListener {

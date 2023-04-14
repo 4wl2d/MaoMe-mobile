@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.sQUAD.maome.ui.fragment.LoginFragment"
+        android:name="com.sQUAD.maome.ui.fragment.register.LoginFragment"
         android:label="loginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.sQUAD.maome.ui.fragment.RegisterFragment"
+        android:name="com.sQUAD.maome.ui.fragment.register.RegisterFragment"
         android:label="registerFragment"
         tools:layout="@layout/fragment_register">
         <action

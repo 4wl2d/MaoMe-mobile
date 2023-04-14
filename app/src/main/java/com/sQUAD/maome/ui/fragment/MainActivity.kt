@@ -1,7 +1,7 @@
 package com.sQUAD.maome.ui.fragment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.sQUAD.maome.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

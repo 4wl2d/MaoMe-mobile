@@ -1,4 +1,4 @@
-package com.sQUAD.maome.retrofit
+package com.sQUAD.maome.retrofit.auth
 
 data class RegisterRequest(
     val email: String,

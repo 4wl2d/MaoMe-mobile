@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.sQUAD.maome.ui.fragment.MainFragment"
+        android:name="com.sQUAD.maome.ui.fragment.main.MainFragment"
         android:label="mainFragment"
         tools:layout="@layout/main_fragment">
 

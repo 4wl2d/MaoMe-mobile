@@ -1,4 +1,4 @@
-package com.sQUAD.maome.ui.fragment
+package com.sQUAD.maome.ui.fragment.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,9 +12,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.sQUAD.maome.adapter.FragmentPagerAdapter
 import com.sQUAD.maome.databinding.MainFragmentBinding
 import com.sQUAD.maome.ui.fragment.extensions.isLocationPermissionGranted
-import com.sQUAD.maome.ui.fragment.main.MainMapFragment
-import com.sQUAD.maome.ui.fragment.main.MainNotesFragment
-import com.sQUAD.maome.ui.fragment.main.MainProfileFragment
 
 class MainFragment : Fragment() {
 

@@ -38,6 +38,7 @@ class MainMapFragment : Fragment() {
         mapView.getMapAsync { map ->
             googleMap = map
         }
+
     }
 
     @SuppressLint("MissingPermission")

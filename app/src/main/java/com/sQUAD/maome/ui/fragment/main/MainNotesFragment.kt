@@ -17,12 +17,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainNotesFragment : Fragment() {
 
-    private var notes: List<Note>? = null
     private lateinit var binding: MainNotesFragmentBinding
     private lateinit var mainAPI: MainApi
     private lateinit var loginViewModel: LoginViewModel
@@ -32,11 +32,6 @@ class MainNotesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = MainNotesFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
         val token = sharedPreferences?.getString("token", null)
@@ -44,11 +39,20 @@ class MainNotesFragment : Fragment() {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val client = OkHttpClient.Builder() // logcat client(for debugging)
-            .addInterceptor(interceptor).build()
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val original = chain.request()
+                var requestBuilder = original.newBuilder()
+                if (token != null) {
+                    requestBuilder = requestBuilder.header("Authorization", "Bearer $token")
+                }
+                val request = requestBuilder.method(original.method, original.body).build()
+                chain.proceed(request)
+            }
+            .build()
 
         val retrofit = Retrofit.Builder() // retrofit created
-            .baseUrl("http://185.209.29.28:8080/api/").client(client)
+            .baseUrl("http://185.209.29.28:8080/api/").client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create()).build()
         mainAPI = retrofit.create(MainApi::class.java) // retrofit instance
 
@@ -65,7 +69,7 @@ class MainNotesFragment : Fragment() {
                         if (response.isSuccessful) {
                             val note = response.body()
                             if (note != null) {
-                                notesAdapter.submitList(note.notes)
+                                notesAdapter.submitList(note)
                                 binding.NoNotesTextView.visibility = View.GONE
                             } else {
                                 binding.NoNotesTextView.visibility = View.VISIBLE
@@ -77,5 +81,7 @@ class MainNotesFragment : Fragment() {
                 }
             }
         }
+
+        return binding.root
     }
 }

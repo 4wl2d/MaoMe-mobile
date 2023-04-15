@@ -10,6 +10,5 @@ class CardNoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private lateinit var binding: CardNoteItemBinding
 
     val NoteCardMemoryNumber: TextView = binding.NoteCardMemoryNumber
-    val NoteCardImageView: ImageView = binding.NoteCardImageView
     val NoteCardCreatedAt: TextView = binding.NoteCardCreatedAt
 }

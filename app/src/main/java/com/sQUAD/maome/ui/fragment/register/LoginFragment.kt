@@ -85,7 +85,7 @@ class LoginFragment : Fragment() {
                 binding.errorMessageLogin.text = message
                 val user = response.body()
                 if (user != null) {
-                    viewModel.token.value = user.token
+                    viewModel.token.value = user.accessToken
 
                     // Получаем экземпляр SharedPreferences
                     val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
@@ -94,7 +94,7 @@ class LoginFragment : Fragment() {
                     val editor = sharedPreferences?.edit()
 
                     // Сохраняем токен в SharedPreferences
-                    editor?.putString("token", "")
+                    editor?.putString("token", viewModel.token.value)
 
                     // Применяем изменения
                     editor?.apply()

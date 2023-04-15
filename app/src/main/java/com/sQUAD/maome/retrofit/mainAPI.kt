@@ -5,7 +5,6 @@ import com.sQUAD.maome.retrofit.auth.RegisterRequest
 import com.sQUAD.maome.retrofit.auth.RegisterResponse
 import com.sQUAD.maome.retrofit.main.Note
 import com.sQUAD.maome.retrofit.main.NoteCreateRequest
-import com.sQUAD.maome.retrofit.main.Notes
 import com.sQUAD.maome.retrofit.main.Photo
 import retrofit2.Response
 import retrofit2.http.*
@@ -43,7 +42,10 @@ interface MainApi {
     ): Response<ByteArray> // return bytearray(photo)
 
     @GET("notes/all")
-    suspend fun getAllNotes(@Header("Authorization") token: String): Response<Notes> // return array of notes
+    suspend fun getAllNotes(@Header("Authorization") token: String): Response<List<Note>> // return array of notes
+
+    @GET("auth/me")
+    suspend fun getUserInfo(@Header("Authorization") token: String): Response<User>
 
     @GET("notes/read/{id}")
     suspend fun getSingleNoteById(

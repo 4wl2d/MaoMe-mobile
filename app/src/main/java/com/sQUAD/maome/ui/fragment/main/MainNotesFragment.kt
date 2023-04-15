@@ -69,10 +69,12 @@ class MainNotesFragment : Fragment() {
                         if (response.isSuccessful) {
                             val note = response.body()
                             if (note != null) {
-                                notesAdapter.submitList(note)
-                                binding.NoNotesTextView.visibility = View.GONE
-                            } else {
-                                binding.NoNotesTextView.visibility = View.VISIBLE
+                                if (note.isNotEmpty()) {
+                                    notesAdapter.submitList(note)
+                                    binding.NoNotesTextView.visibility = View.GONE
+                                } else {
+                                    binding.NoNotesTextView.visibility = View.VISIBLE
+                                }
                             }
                         } else {
                             binding.NoNotesTextView.visibility = View.VISIBLE

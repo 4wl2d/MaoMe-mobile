@@ -1,6 +1,7 @@
 package com.sQUAD.maome.ui.fragment.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,12 +15,21 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.sQUAD.maome.databinding.MainMapFragmentBinding
+import com.sQUAD.maome.retrofit.MainApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainMapFragment : Fragment() {
     private lateinit var binding: MainMapFragmentBinding
     private lateinit var googleMap: GoogleMap
     private lateinit var mapView: MapView
+    private lateinit var mainApi: MainApi
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +48,29 @@ class MainMapFragment : Fragment() {
         mapView.getMapAsync { map ->
             googleMap = map
         }
+
+        val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
+        val token = sharedPreferences?.getString("token", null)
+
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val original = chain.request()
+                var requestBuilder = original.newBuilder()
+                if (token != null) {
+                    requestBuilder = requestBuilder.header("Authorization", "Bearer $token")
+                }
+                val request = requestBuilder.method(original.method, original.body).build()
+                chain.proceed(request)
+            }
+            .build()
+
+        val retrofit = Retrofit.Builder() // retrofit created
+            .baseUrl("http://185.209.29.28:8080/api/").client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        mainApi = retrofit.create(MainApi::class.java) // retrofit instance
 
     }
 

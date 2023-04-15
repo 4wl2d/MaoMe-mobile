@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/AddMemoryFragment">
+
+    <TextView
+        android:id="@+id/tvmemoryname3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Memory text"
+        app:layout_constraintStart_toStartOf="@+id/MemoryNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/MemoryNameEditText" />
+
+    <TextView
+        android:id="@+id/tvAddNewMemory"
+        android:layout_width="208dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:text="Add new memory"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/AddMemoryBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backarrow" />
+
+    <TextView
+        android:id="@+id/tvmemoryname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Memory name"
+        app:layout_constraintStart_toStartOf="@+id/MemoryNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddNewMemory" />
+
+    <EditText
+        android:id="@+id/MemoryNameEditText"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:ems="10"
+        android:hint="Type memory name here"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvmemoryname" />
+
+    <EditText
+        android:id="@+id/MemoryContentEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Type memory text"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/tvmemoryname3"
+        app:layout_constraintTop_toBottomOf="@+id/tvmemoryname3" />
+
+    <ImageButton
+        android:id="@+id/PickImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/MemoryContentEditText"
+        app:layout_constraintTop_toBottomOf="@+id/MemoryContentEditText"
+        app:srcCompat="@drawable/add_photo_clip" />
+
+    <Button
+        android:id="@+id/AddMemoryButton"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:text="Add memory"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,43 +10,41 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.sQUAD.maome.R
-import com.sQUAD.maome.databinding.MainMapFragmentBinding
+import com.sQUAD.maome.databinding.AddMemoryFragmentBinding
 import com.sQUAD.maome.retrofit.MainApi
+import com.sQUAD.maome.retrofit.main.NoteCreateRequest
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class MainMapFragment : Fragment() {
-    private lateinit var binding: MainMapFragmentBinding
+class AddMemoryFragment : Fragment() {
+
+    private lateinit var binding: AddMemoryFragmentBinding
     private lateinit var googleMap: GoogleMap
     private lateinit var mapView: MapView
     private lateinit var mainApi: MainApi
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = MainMapFragmentBinding.inflate(inflater, container, false)
+        binding = AddMemoryFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mapView = binding.googleMap
-        mapView.onCreate(savedInstanceState)
-
-        mapView.getMapAsync { map ->
-            googleMap = map
-        }
 
         val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
         val token = sharedPreferences?.getString("token", null)
@@ -72,44 +70,32 @@ class MainMapFragment : Fragment() {
         mainApi = retrofit.create(MainApi::class.java) // retrofit instance
 
         binding.apply {
-            fabAddMemory.setOnClickListener{
-                findNavController().navigate(R.id.action_mainFragment_to_AddMemoryFragment)
+            AddMemoryBackButton.setOnClickListener {
+                findNavController().navigate(R.id.action_AddMemoryFragment_to_mainFragment)
+            }
+            PickImageButton.setOnClickListener {
+
+            }
+            AddMemoryButton.setOnClickListener {
+                mapView.onResume()
+
+                val fusedLocationClient =
+                    activity?.let { LocationServices.getFusedLocationProviderClient(it) }
+
+                fusedLocationClient?.lastLocation?.addOnSuccessListener { location: Location ->
+                    // Use the location object to display the user's current location on the map
+                    val currentLatLng = LatLng(location.latitude, location.longitude)
+                    val noteCreateRequest = NoteCreateRequest(
+                        MemoryNameEditText.text.toString(),
+                        MemoryContentEditText.text.toString(),
+                        latLng = currentLatLng
+                    )
+                    CoroutineScope(Dispatchers.IO).launch {
+                        token?.let { mainApi.createNote(it, noteCreateRequest) }
+                    }
+
+                }
             }
         }
-    }
-
-    @SuppressLint("MissingPermission")
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-
-        // Initialize fusedLocationClient
-        val fusedLocationClient =
-            activity?.let { LocationServices.getFusedLocationProviderClient(it) }
-
-        // Get user's current location
-        fusedLocationClient?.lastLocation?.addOnSuccessListener { location: Location? ->
-            // Use the location object to display the user's current location on the map
-            if (location != null) {
-                val currentLatLng = LatLng(location.latitude, location.longitude)
-                googleMap.addMarker(MarkerOptions().position(currentLatLng).title("You are here!"))
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
-            }
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
     }
 }

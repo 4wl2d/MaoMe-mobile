@@ -72,7 +72,7 @@ class MainMapFragment : Fragment() {
         mainApi = retrofit.create(MainApi::class.java) // retrofit instance
 
         binding.apply {
-            fabAddMemory.setOnClickListener{
+            fabAddMemory.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment_to_AddMemoryFragment)
             }
         }

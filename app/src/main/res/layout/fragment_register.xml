@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentRegister"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -13,6 +12,7 @@
         android:layout_marginTop="250dp"
         android:ems="10"
         android:hint="Email"
+        android:fontFamily="@font/inter"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +25,7 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Username"
+        android:fontFamily="@font/inter"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/emailRegister"
         app:layout_constraintStart_toStartOf="@+id/emailRegister"
@@ -37,6 +38,7 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Password"
+        android:fontFamily="@font/inter"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/usernameRegister"
         app:layout_constraintStart_toStartOf="@+id/usernameRegister"
@@ -49,6 +51,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:contentDescription="transite us to fragment_login"
+        android:fontFamily="@font/inter"
         android:text="go back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -58,6 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/inter"
         android:text="Register"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/passwordRegister"

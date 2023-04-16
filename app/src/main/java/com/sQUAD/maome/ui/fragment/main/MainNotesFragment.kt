@@ -10,14 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sQUAD.maome.adapter.NotesRCAdapter
 import com.sQUAD.maome.databinding.MainNotesFragmentBinding
 import com.sQUAD.maome.retrofit.MainApi
-import com.sQUAD.maome.retrofit.main.Note
 import com.sQUAD.maome.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

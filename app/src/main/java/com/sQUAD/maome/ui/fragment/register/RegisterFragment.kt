@@ -8,13 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.sQUAD.maome.R
 import com.sQUAD.maome.databinding.FragmentRegisterBinding
 import com.sQUAD.maome.retrofit.MainApi
 import com.sQUAD.maome.retrofit.auth.RegisterRequest
-import com.sQUAD.maome.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

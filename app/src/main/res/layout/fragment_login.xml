@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,6 +14,7 @@
         android:contentDescription="username for auth"
         android:ems="10"
         android:hint="Username"
+        android:fontFamily="@font/inter"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -29,6 +29,7 @@
         android:contentDescription="password for auth"
         android:ems="10"
         android:hint="Password"
+        android:fontFamily="@font/inter"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/usernameLogin"
         app:layout_constraintStart_toStartOf="@+id/usernameLogin"
@@ -41,6 +42,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:text="Register"
+        android:fontFamily="@font/inter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Login"
+        android:fontFamily="@font/inter"
         app:layout_constraintEnd_toEndOf="@+id/passwordLogin"
         app:layout_constraintStart_toStartOf="@+id/passwordLogin"
         app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />

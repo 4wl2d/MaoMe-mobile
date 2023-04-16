@@ -22,7 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_bold"
             android:text="U have no notes for now!"
+            android:textSize="60sp"
             android:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -32,6 +34,4 @@
             android:layout_weight="8" />
 
     </LinearLayout>
-
->>>>>>> origin/main
 </androidx.constraintlayout.widget.ConstraintLayout>

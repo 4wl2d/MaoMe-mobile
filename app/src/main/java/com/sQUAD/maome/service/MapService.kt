@@ -7,7 +7,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.sQUAD.maome.retrofit.MainApi
 
-class MapService: OnMapReadyCallback, OnMapClickListener, OnMapLongClickListener {
+class MapService : OnMapReadyCallback, OnMapClickListener, OnMapLongClickListener {
 
     private lateinit var mainApi: MainApi
 

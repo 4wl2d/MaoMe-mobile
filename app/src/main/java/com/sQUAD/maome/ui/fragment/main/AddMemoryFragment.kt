@@ -63,7 +63,8 @@ class AddMemoryFragment : Fragment() {
                 findNavController().navigate(R.id.action_mainFragment_to_AddMemoryFragment)
             }
             val file = imageUri?.path?.let { it1 -> File(it1) }
-            storageRef = storage.reference.child("images/${imageUri?.let { generateRandomName(it) }}")
+            storageRef =
+                storage.reference.child("images/${imageUri?.let { generateRandomName(it) }}")
             val uploadTask = storageRef.putFile(Uri.fromFile(file))
             uploadTask.addOnCompleteListener { task ->
                 if (task.isSuccessful) {

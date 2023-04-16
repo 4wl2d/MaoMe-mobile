@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/AddMemoryFragment">
@@ -11,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/inter"
         android:text="Memory text"
         app:layout_constraintStart_toStartOf="@+id/MemoryNameEditText"
         app:layout_constraintTop_toBottomOf="@+id/MemoryNameEditText" />
@@ -21,8 +21,10 @@
         android:layout_height="129dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="Add new memory"
-        android:textSize="48sp"
+        android:textSize="32dp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:fontFamily="@font/inter"
         android:text="Memory name"
         app:layout_constraintStart_toStartOf="@+id/MemoryNameEditText"
         app:layout_constraintTop_toBottomOf="@+id/tvAddNewMemory" />
@@ -54,7 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:ems="10"
-        android:hint="Type memory name here"
+        android:fontFamily="@font/inter"
+        android:hint="Type memory name"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvmemoryname" />
@@ -64,6 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:fontFamily="@font/inter"
         android:hint="Type memory text"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/tvmemoryname3"
@@ -86,6 +91,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="50dp"
+        android:fontFamily="@font/poppins_bold"
+        android:backgroundTint="@color/brown_main"
         android:text="Add memory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

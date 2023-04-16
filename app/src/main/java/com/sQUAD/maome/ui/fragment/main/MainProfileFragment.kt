@@ -60,7 +60,7 @@ class MainProfileFragment : Fragment() {
         mainApi = retrofit.create(MainApi::class.java) // retrofit instance
 
         binding.apply {
-            ExitFromAccountButton.setOnClickListener{
+            ExitFromAccountButton.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
                 val editor = sharedPreferences?.edit()
                 editor?.putString("token", null)
@@ -72,8 +72,7 @@ class MainProfileFragment : Fragment() {
                 requireActivity().runOnUiThread {
                     if (response != null) {
                         WelcomeTextView.text = "Welcome, ${response.body()?.username}"
-                    }
-                    else {
+                    } else {
                         WelcomeTextView.text = "Welcome, noname :)"
                     }
                 }
@@ -84,8 +83,7 @@ class MainProfileFragment : Fragment() {
                 requireActivity().runOnUiThread {
                     if (response != null) {
                         TotalMemoriesTextView.text = "Total memories: ${response.body()?.size}"
-                    }
-                    else {
+                    } else {
                         TotalMemoriesTextView.text = "Total memories: 0"
                     }
                 }
@@ -96,8 +94,7 @@ class MainProfileFragment : Fragment() {
                 requireActivity().runOnUiThread {
                     if (response != null) {
                         AccountIDTextView.text = "Account ID: ${response.body()?.id}"
-                    }
-                    else {
+                    } else {
                         AccountIDTextView.text = "Account ID: ???wtf???"
                     }
                 }

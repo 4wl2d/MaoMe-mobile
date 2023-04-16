@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.sQUAD.maome.R
 import com.sQUAD.maome.adapter.FragmentPagerAdapter
 import com.sQUAD.maome.databinding.MainFragmentBinding
 import com.sQUAD.maome.ui.fragment.extensions.isLocationPermissionGranted
@@ -49,9 +50,9 @@ class MainFragment : Fragment() {
             // Link the TabLayout to the ViewPager2
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 when (position) {
-                    0 -> tab.text = "Map"
-                    1 -> tab.text = "Notes"
-                    2 -> tab.text = "Profile"
+                    0 -> tab.setIcon(R.drawable.map)
+                    1 -> tab.setIcon(R.drawable.notes)
+                    2 -> tab.setIcon(R.drawable.profile)
                 }
             }.attach()
         }
@@ -59,7 +60,8 @@ class MainFragment : Fragment() {
 
     private fun locationPermissionListener() {
         locLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestPermission()){// granting permission and if not granted we can do something
+            ActivityResultContracts.RequestPermission()
+        ) {// granting permission and if not granted we can do something
 
         }
     }

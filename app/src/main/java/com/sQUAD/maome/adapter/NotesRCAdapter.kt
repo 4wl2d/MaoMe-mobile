@@ -17,7 +17,8 @@ class NotesRCAdapter : ListAdapter<Note, NotesRCAdapter.Holder>(Comparator()) {
 
         fun bind(note: Note) = with(binding) {
             NoteCardCreatedAt.text = note.createdAt
-            NoteCardMemoryNumber.text = note.id.toString()
+            NoteCardMemoryNumber.text = "It is a ${note.id} in our database!"
+            NoteCardMemoryName.text = note.title
         }
     }
 

@@ -18,6 +18,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.storage.FirebaseStorage
 import com.sQUAD.maome.R
@@ -170,6 +172,7 @@ class AddMemoryFragment : Fragment() {
                         }
                     }
                     requireActivity().runOnUiThread {
+
                         findNavController().navigate(R.id.action_AddMemoryFragment_to_mainFragment)
                         Toast.makeText(
                             context,

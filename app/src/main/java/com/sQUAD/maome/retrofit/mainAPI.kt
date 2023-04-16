@@ -17,7 +17,7 @@ interface MainApi {
     @POST("auth/signup")
     suspend fun register(@Body registerRequest: RegisterRequest): Response<RegisterResponse> // return server response(string format)
 
-    @POST("notes/photo/upload")
+    @POST("photo/upload")
     suspend fun photoUpload(
         @Header("Authorization") token: String,
         @Body photo: Photo
@@ -27,7 +27,7 @@ interface MainApi {
     suspend fun createNote(
         @Header("Authorization") token: String,
         @Body noteCreateRequest: NoteCreateRequest
-    ): Response<Long> // return users note id
+    ): Response<Note> // return users note id
 
     @POST("notes/edit")
     suspend fun editNote(

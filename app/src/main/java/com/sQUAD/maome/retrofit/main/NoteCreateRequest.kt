@@ -5,5 +5,6 @@ import com.google.android.gms.maps.model.LatLng
 data class NoteCreateRequest(
     val title: String,
     val content: String,
-    val latLng: LatLng
+    val latitude: Double,
+    val longitude: Double
 )

@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#ff0000</color>
+    <!-- next colors are for gallery  -->
+    <color name="ucrop_color_toolbar"></color>
+    <color name="ucrop_color_statusbar"></color>
+    <color name="ucrop_color_widget_active"></color>
 </resources>

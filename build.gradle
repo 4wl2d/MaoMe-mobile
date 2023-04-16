@@ -2,6 +2,8 @@
 buildscript {
     repositories {
         google()
+        maven { url "https://jitpack.io" }
+        mavenCentral() // For ImagePicker library, this line is enough. Although, it has been published on jitpack as well
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.15'

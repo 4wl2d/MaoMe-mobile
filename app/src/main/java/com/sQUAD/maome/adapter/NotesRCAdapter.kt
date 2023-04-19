@@ -19,6 +19,7 @@ class NotesRCAdapter : ListAdapter<Note, NotesRCAdapter.Holder>(Comparator()) {
             NoteCardCreatedAt.text = note.createdAt
             NoteCardMemoryNumber.text = "It is a ${note.id} in our database!"
             NoteCardMemoryName.text = note.title
+            NoteCardContext.text = note.content
         }
     }
 

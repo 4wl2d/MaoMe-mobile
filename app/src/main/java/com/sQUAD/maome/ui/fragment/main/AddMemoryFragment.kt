@@ -18,22 +18,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.storage.FirebaseStorage
 import com.sQUAD.maome.R
 import com.sQUAD.maome.databinding.AddMemoryFragmentBinding
 import com.sQUAD.maome.retrofit.MainApi
+import com.sQUAD.maome.retrofit.RetrofitCfg
 import com.sQUAD.maome.retrofit.main.NoteCreateRequest
 import com.sQUAD.maome.viewModels.LocationViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.*
 
@@ -44,6 +39,7 @@ class AddMemoryFragment : Fragment() {
     private lateinit var mainApi: MainApi
     private val ourLocation: LocationViewModel by activityViewModels()
     private var imageUri: Uri? = null
+    private var retrofitCfg = RetrofitCfg()
     private val storage = FirebaseStorage.getInstance("gs://maome-840e8.appspot.com")
     private var storageRef = storage.reference.child("images/image.jpg")
 
@@ -106,25 +102,8 @@ class AddMemoryFragment : Fragment() {
         val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
         val token = sharedPreferences?.getString("token", null)
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val original = chain.request()
-                var requestBuilder = original.newBuilder()
-                if (token != null) {
-                    requestBuilder = requestBuilder.header("Authorization", "Bearer $token")
-                }
-                val request = requestBuilder.method(original.method, original.body).build()
-                chain.proceed(request)
-            }
-            .build()
-
-        val retrofit = Retrofit.Builder() // retrofit created
-            .baseUrl("http://185.209.29.28:8080/api/").client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create()).build()
-        mainApi = retrofit.create(MainApi::class.java) // retrofit instance
+        retrofitCfg.setToken(token)
+        mainApi = retrofitCfg.getMainApiWithToken()
 
         // Initialize fusedLocationClient
         val fusedLocationClient =

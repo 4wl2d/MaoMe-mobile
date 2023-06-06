@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.sQUAD.maome.R
 import com.sQUAD.maome.databinding.FragmentRegisterBinding
 import com.sQUAD.maome.retrofit.MainApi
+import com.sQUAD.maome.retrofit.RetrofitCfg
 import com.sQUAD.maome.retrofit.auth.RegisterRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,7 @@ class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var mainApi: MainApi
+    private var retrofitCfg = RetrofitCfg()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,19 +39,8 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val client = OkHttpClient.Builder() // logcat client(for debugging)
-            .addInterceptor(interceptor)
-            .build()
-
-        val retrofit = Retrofit.Builder() // retrofit creating
-            .baseUrl("http://185.209.29.28:8080/api/")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        mainApi = retrofit.create(MainApi::class.java) // retrofit instance
+        mainApi = retrofitCfg.getMainApiWithoutToken()
 
         binding.passwordRegister.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

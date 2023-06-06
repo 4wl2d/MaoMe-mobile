@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sQUAD.maome.adapter.NotesRCAdapter
 import com.sQUAD.maome.databinding.MainNotesFragmentBinding
 import com.sQUAD.maome.retrofit.MainApi
+import com.sQUAD.maome.retrofit.RetrofitCfg
 import com.sQUAD.maome.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,8 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainNotesFragment : Fragment() {
 
     private lateinit var binding: MainNotesFragmentBinding
-    private lateinit var mainAPI: MainApi
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var mainApi: MainApi
+    private var retrofitCfg = RetrofitCfg()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,32 +36,15 @@ class MainNotesFragment : Fragment() {
         val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
         val token = sharedPreferences?.getString("token", null)
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val original = chain.request()
-                var requestBuilder = original.newBuilder()
-                if (token != null) {
-                    requestBuilder = requestBuilder.header("Authorization", "Bearer $token")
-                }
-                val request = requestBuilder.method(original.method, original.body).build()
-                chain.proceed(request)
-            }
-            .build()
-
-        val retrofit = Retrofit.Builder() // retrofit created
-            .baseUrl("http://185.209.29.28:8080/api/").client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create()).build()
-        mainAPI = retrofit.create(MainApi::class.java) // retrofit instance
+        retrofitCfg.setToken(token)
+        mainApi = retrofitCfg.getMainApiWithToken()
 
         // initialize notesList with your data
         val notesAdapter = NotesRCAdapter()
         binding.notesRcView.adapter = notesAdapter
         binding.notesRcView.layoutManager = LinearLayoutManager(requireContext())
         CoroutineScope(Dispatchers.IO).launch {
-            val response = token?.let { mainAPI.getAllNotes(it) }
+            val response = token?.let { mainApi.getAllNotes(it) }
 
             requireActivity().runOnUiThread {
                 binding.apply {

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.sQUAD.maome.R
 import com.sQUAD.maome.databinding.FragmentLoginBinding
 import com.sQUAD.maome.retrofit.MainApi
+import com.sQUAD.maome.retrofit.RetrofitCfg
 import com.sQUAD.maome.retrofit.auth.AuthRequest
 import com.sQUAD.maome.viewModels.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +27,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding // initialize binding for this fragment
     private lateinit var mainApi: MainApi
+    private var retrofitCfg = RetrofitCfg()
     private val viewModel: LoginViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -46,19 +48,7 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
         }
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val client = OkHttpClient.Builder() // logcat client(for debugging)
-            .addInterceptor(interceptor)
-            .build()
-
-        val retrofit = Retrofit.Builder() // retrofit creating
-            .baseUrl("http://185.209.29.28:8080/api/")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        mainApi = retrofit.create(MainApi::class.java) // retrofit instance
+        mainApi = retrofitCfg.getMainApiWithoutToken()
 
         binding.apply {
             GoToRegisterButton.setOnClickListener {

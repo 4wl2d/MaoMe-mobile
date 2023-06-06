@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.sQUAD.maome.R
 import com.sQUAD.maome.databinding.MainProfileFragmentBinding
 import com.sQUAD.maome.retrofit.MainApi
+import com.sQUAD.maome.retrofit.RetrofitCfg
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ class MainProfileFragment : Fragment() {
 
     private lateinit var binding: MainProfileFragmentBinding
     private lateinit var mainApi: MainApi
+    private var retrofitCfg = RetrofitCfg()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,25 +41,8 @@ class MainProfileFragment : Fragment() {
         val sharedPreferences = activity?.getSharedPreferences("User_token", Context.MODE_PRIVATE)
         val token = sharedPreferences?.getString("token", null)
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val original = chain.request()
-                var requestBuilder = original.newBuilder()
-                if (token != null) {
-                    requestBuilder = requestBuilder.header("Authorization", "Bearer $token")
-                }
-                val request = requestBuilder.method(original.method, original.body).build()
-                chain.proceed(request)
-            }
-            .build()
-
-        val retrofit = Retrofit.Builder() // retrofit created
-            .baseUrl("http://185.209.29.28:8080/api/").client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create()).build()
-        mainApi = retrofit.create(MainApi::class.java) // retrofit instance
+        retrofitCfg.setToken(token)
+        mainApi = retrofitCfg.getMainApiWithToken()
 
         binding.apply {
             ExitFromAccountButton.setOnClickListener {
